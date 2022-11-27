@@ -11,9 +11,8 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    final wordPair = WordPair.random();
     return MaterialApp(
-      title: 'Welcome to Flutter',
+      title: 'Startup Name Generator',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -28,7 +27,7 @@ class MyApp extends StatelessWidget {
       ),
       // home: const MyHomePage(title: 'Flutter Demo Home Page'),
       home: Scaffold(
-        appBar: AppBar(title: const Text('Welcome to Flutter')),
+        appBar: AppBar(title: const Text('Startup Name Generator')),
         body: const Center(
           // child: Text(wordPair.asPascalCase),
           child: RandomWords(),
@@ -131,9 +130,25 @@ class RandomWords extends StatefulWidget {
 }
 
 class _RandomWordsState extends State<RandomWords> {
+  final _suggestions = <WordPair>[];
+  final _biggerFont = const TextStyle(fontSize: 18);
+
   @override
   Widget build(BuildContext context) {
-    final wordPair = WordPair.random();
-    return Text(wordPair.asPascalCase);
+    return ListView.builder(
+        padding: const EdgeInsets.all(16.0),
+        itemBuilder: ((context, index) {
+          if (index.isOdd) return const Divider();
+
+          final i = index ~/ 2;
+          if (i >= _suggestions.length) {
+            _suggestions.addAll(generateWordPairs().take(10));
+          }
+          return ListTile(
+              title: Text(
+            _suggestions[i].asPascalCase,
+            style: _biggerFont,
+          ));
+        }));
   }
 }
