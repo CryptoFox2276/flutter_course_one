@@ -29,8 +29,9 @@ class MyApp extends StatelessWidget {
       // home: const MyHomePage(title: 'Flutter Demo Home Page'),
       home: Scaffold(
         appBar: AppBar(title: const Text('Welcome to Flutter')),
-        body: Center(
-          child: Text(wordPair.asPascalCase),
+        body: const Center(
+          // child: Text(wordPair.asPascalCase),
+          child: RandomWords(),
         ),
       ),
     );
